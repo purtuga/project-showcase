@@ -1,0 +1,25 @@
+{
+    "name": "project-showcase",
+    "version": "1.0.0",
+    "description": "Quickly add showcases to your library and provide the ability to generate a static site for them.",
+    "main": "src/index.js",
+    "repository": "git@github.com:purtuga/project-showcase.git",
+    "scripts": {
+        "serve": "webpack-dev-server --config node_modules/project-base/configs/webpack.dev.js --progress --hot --color --entry ./dev/index.js",
+        "build": "webpack --config node_modules/project-base/configs/webpack.dev.js",
+        "build:ie": "webpack --config node_modules/project-base/configs/webpack.prod.js --entry ./dev/index.js --output-path ./dev --output-filename ie-test-bundle.js",
+        "build:prod": "webpack --config node_modules/project-base/configs/webpack.prod.js",
+        "build:prod:min": "webpack --config node_modules/project-base/configs/webpack.prod.uglify.js",
+        "build:apiDocs": "jsdoc -c node_modules/project-base/configs/jsdoc.conf.json",
+        "dist": "npm run build:prod&&npm run build:prod:min",
+        "setup:dev": "node node_modules/project-base/scripts/create-dev",
+        "test": "tape -r @std/esm test/**/*.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "component-element": "github:purtuga/ComponentElement",
+        "project-base": "github:purtuga/project-base"
+    }
+}
