@@ -1,12 +1,13 @@
 #   Project Showcase
 Quickly add showcases to your library and provide the ability to generate a static site for them.
 
+Each showcase is added by calling the `showcase()` function with a callback that is called when that showcase is selected in the UI. 
 
-##  Design
+This library provides a set of Custom Elements that can be used to build the User Interfaces that then displays the showcases that were registered. 
 
-Create the UI as Web Components. Provide a set of Custom Elements that can be used to build the User Interfaces. Each showcase is added by calling a `showcase()` function with a callback that is called when that showcase is selected in the UI.
 
 ### `showcase()` method
+Registers a showcase.
 
 ````javascript
 import {showcase} from "showcase"
@@ -22,18 +23,16 @@ showcase("cool-button", function ($content){
 })
 ````
 
+TODO: document method's signature/usage.
+
 
 ### Element: `showcase-menu`
 
 UI element will display the menu with all registered showcases.
 
 ```html
-<showcase-menu
-    use-router
-    ></showcase-menu>
+<showcase-menu></showcase-menu>
 ``` 
-
-When `use-router` is set, the page's hash will updated with the showcase name (ex. `#/cool-button`)
 
 This element emits the following events:
 
@@ -42,7 +41,7 @@ This element emits the following events:
 
 ### Element: `showcase-router`
 
-UI element that will initialize a page hash router.
+UI element that will initialize a page hash router.  The router in turn updates the internal `state` by first clearing out the current `state.selected` showcase and then populating it with the new one that was selected. 
 
 ### Element: `showcase-body`
 
@@ -51,4 +50,12 @@ The UI element where the showcase should be displayed in. Will be given to the `
 ```html
 <showcase-body></showcase-body>
 ```
+
+This element has one required `prop` named `showcase` and it must be an object with the showcase information. (note: this is a "prop" not an html attribute).
+
+
+
+#   TODO
+
+- [ ] Create script that allows this to be added to any existing project
 

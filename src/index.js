@@ -3,6 +3,7 @@ import {ShowcaseBody} from "./ShowcaseBody";
 import {ShowcaseMenu} from "./ShowcaseMenu";
 import {ShowcaseApp} from "./ShowcaseApp";
 
+export {state} from "./common"
 export {showcase} from "./showcase"
 export {
     ShowcaseApp,

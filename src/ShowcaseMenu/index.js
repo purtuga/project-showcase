@@ -14,13 +14,35 @@ export class ShowcaseMenu extends ComponentElement {
         return `
 <style>
 :host {
-    display: inline-block;
+    display: block;
+}
+a {
+    display: block;
+    padding: 0.2em;
+    line-height: 2em;
+}
+a:hover {
+    background-color: #ecf5f7;
 }
 </style>
-<a _each="showcase of state.showcases" _on.click="handleEvent($ev, showcase)" _attr.href="'#/showcase/' + showcase.name">{{showcase.name}}</a>`;
+<a _each="showcase of getShowcaseList()" _on.click="handleEvent($ev, showcase)" _attr.href="'#/showcase/' + showcase.name">
+    <span _if="state.selected === showcase">&#10004;</span>
+    {{showcase.name}}
+</a>`;
     }
     static renderTemplate(ele) {
-        const template = render(getComponentTemplate(this).innerHTML, { props: ele.props, state, handleEvent: handleEvent.bind(ele) }, allDirectives);
+        const template = render(
+            getComponentTemplate(this).innerHTML,
+            {
+                props: ele.props,
+                state,
+                handleEvent: handleEvent.bind(ele),
+                getShowcaseList() {
+                    return state.showcases.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase());
+                }
+            },
+            allDirectives
+        );
         ele.onDestroy(() => {
             template.DomDataBind.destroy();
         });

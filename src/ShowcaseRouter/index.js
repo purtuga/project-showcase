@@ -17,7 +17,7 @@ export class ShowcaseRouter extends ComponentElement {
     init() {
         page.base("/#");
         page("/showcase/:showcase", removeCurrentShowcase, displayShowcase);
-        page.start();
+        setTimeout(() => page.start(), 200); // To allow registrations of showcases
     }
 
     // Called when all required `props` have been provided
