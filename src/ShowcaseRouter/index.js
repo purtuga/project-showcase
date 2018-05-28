@@ -1,4 +1,8 @@
 import {ComponentElement} from "component-element"
+import page from "page"
+import {state} from "../common";
+
+//================================================================
 
 export class ShowcaseRouter extends ComponentElement {
     static get tagName() {
@@ -6,11 +10,15 @@ export class ShowcaseRouter extends ComponentElement {
     }
 
     static get template() {
-        return `<div>My ShowcaseRouter</div>`;
+        return `<span></span>`;
     }
 
     // Called from constructor
-    // init() {}
+    init() {
+        page.base("/#");
+        page("/showcase/:showcase", removeCurrentShowcase, displayShowcase);
+        page.start();
+    }
 
     // Called when all required `props` have been provided
     // ready() {}
@@ -24,5 +32,20 @@ export class ShowcaseRouter extends ComponentElement {
     // called when element is removed from dom
     // unmounted() {}
 }
-
 export default ShowcaseRouter;
+
+function removeCurrentShowcase (ctx, next) {
+    state.selected = null;
+    next();
+}
+
+function displayShowcase (ctx) {
+    let showcaseDefinition;
+    state.showcases.some(showcase => {
+        if (showcase.name === ctx.params.showcase) {
+            showcaseDefinition = showcase;
+            return true;
+        }
+    });
+    setTimeout(() => state.selected = showcaseDefinition);
+}

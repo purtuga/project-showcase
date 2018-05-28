@@ -19,9 +19,12 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "project-base": "github:purtuga/project-base"
+  },
+  "dependencies": {
     "component-element": "github:purtuga/ComponentElement",
     "dom-data-bind": "github:purtuga/dom-data-bind",
     "observables": "github:purtuga/observables",
-    "project-base": "github:purtuga/project-base"
+    "page": "^1.8.6"
   }
 }

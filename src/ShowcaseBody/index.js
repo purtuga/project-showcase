@@ -1,4 +1,4 @@
-import {ComponentElement} from "component-element"
+import {ComponentElement, prop} from "component-element"
 
 export class ShowcaseBody extends ComponentElement {
     static get tagName() {
@@ -6,14 +6,27 @@ export class ShowcaseBody extends ComponentElement {
     }
 
     static get template() {
-        return `<div>My ShowcaseBody</div>`;
+        return `
+<style>
+:host {
+    display: block;
+}
+</style>
+<div>
+    <slot></slot>
+</div>`;
     }
+
+    @prop({ required: true })
+    get showcase() {}
 
     // Called from constructor
     // init() {}
 
     // Called when all required `props` have been provided
-    // ready() {}
+    ready() {
+        this.props.showcase.callback(this);
+    }
 
     // Called if required fields are removed
     // unready() {}

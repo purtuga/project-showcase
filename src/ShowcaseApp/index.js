@@ -9,9 +9,17 @@ export class ShowcaseApp extends ComponentElement {
     }
 
     static get template() {
-        return `<div>
+        return `
+<style>
+:host {
+    display: block;
+    padding: 0.5em;
+}
+</style>
+<div>
+    <showcase-router></showcase-router>
     <showcase-menu></showcase-menu>
-    <showcase-body _if="state.selected" ></showcase-body>
+    <showcase-body _if="state.selected" _prop.showcase="state.selected"></showcase-body>
     <slot></slot>
 <div>`;
     }
