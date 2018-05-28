@@ -1,8 +1,8 @@
-import {showcaseList} from "./common"
+import {state} from "./common"
 
 
 export function showcase(name, callback) {
-    showcaseList.push({
+    state.showcases.push({
         name,
         callback
     });
