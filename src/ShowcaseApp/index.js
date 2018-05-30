@@ -15,29 +15,38 @@ export class ShowcaseApp extends ComponentElement {
     display: block;
     padding: 0.5em;
 }
-.layout {
-    display: flex;
-    justify-content: space-between;
-}
-.nav {
-    flex: 1 20%;
-    padding: 0.2em;
-}
-.body {
-    width: 79.9%;
-}
 </style>
 <showcase-router></showcase-router>
+
+<app-layout-side-nav-push>
+    <showcase-menu class="nav" slot="navbar"></showcase-menu>
+    <menu-icon _on.click="toggleMenu"></menu-icon>
+    <slot></slot>
+    <showcase-body class="body" _if="state.selected" _prop.showcase="state.selected"></showcase-body>
+    
+</app-layout-side-nav-push>
+
 <div class="layout">
     <div class="nav">
-        <showcase-menu class="nav"></showcase-menu>
     </div>
-    <showcase-body class="body" _if="state.selected" _prop.showcase="state.selected"></showcase-body>
-<div>
-<slot></slot>`;
+<div>`;
     }
     static renderTemplate(ele) {
-        const template = render(getComponentTemplate(this).innerHTML, { props: this.props, state}, allDirectives);
+        const template = render(
+            getComponentTemplate(this).innerHTML,
+            {
+                props: this.props,
+                state,
+                toggleMenu(ev) {
+                    ev.target.emit(
+                        ev.target.isOpened ? "show-side-nav" : "hide-side-nav",
+                        null,
+                        { bubbles: true }
+                    );
+                }
+            },
+            allDirectives
+        );
         ele.onDestroy(() => template.DomDataBind.destroy());
         return template;
     }
