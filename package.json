@@ -15,8 +15,8 @@
     "setup:dev": "node node_modules/project-base/scripts/create-dev",
     "test": "tape -r @std/esm test/**/*.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["showcase", "demo", "prototye", "example", "site", "static"],
+  "author": "Paul Tavares",
   "license": "MIT",
   "devDependencies": {
     "project-base": "github:purtuga/project-base"

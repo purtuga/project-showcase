@@ -14,19 +14,32 @@ export class ShowcaseMenu extends ComponentElement {
         return `
 <style>
 :host {
+    
     display: block;
 }
+
 a {
     display: block;
     padding: 0.2em;
     line-height: 2em;
+    color: darkgrey;
+    text-decoration: none;
 }
+
+a > .icon {
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
 a:hover {
     background-color: #ecf5f7;
 }
 </style>
 <a _each="showcase of getShowcaseList()" _on.click="handleEvent($ev, showcase)" _attr.href="'#/showcase/' + showcase.name">
-    <span _if="state.selected === showcase">&#10004;</span>
+    <span class="icon">
+        <span class="icon" _show="state.selected !== showcase">&#9675;</span>
+        <span class="icon" _show="state.selected === showcase" style="color: green;">&#9679;</span>
+    </span>
     {{showcase.name}}
 </a>`;
     }

@@ -15,21 +15,33 @@ export class ShowcaseApp extends ComponentElement {
     display: block;
     padding: 0.5em;
 }
+nav {
+    height: 100%;
+    width: 250px;
+    box-sizing: border-box;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: #eaeaea;
+    overflow-x: hidden;
+    padding: 0.5em;
+}
+
+.body {
+    margin-left: 250px;
+    box-sizing: border-box;
+}
 </style>
-<showcase-router></showcase-router>
-
-<app-layout-side-nav-push>
-    <showcase-menu class="nav" slot="navbar"></showcase-menu>
-    <menu-icon _on.click="toggleMenu"></menu-icon>
+<showcase-router></showcase-router>  
+<nav>
+    <h2 style="color: #c5c5c5">Showcases</h2>
+    <showcase-menu class="nav"></showcase-menu> 
+</nav>
+<div class="body">
     <slot></slot>
-    <showcase-body class="body" _if="state.selected" _prop.showcase="state.selected"></showcase-body>
-    
-</app-layout-side-nav-push>
-
-<div class="layout">
-    <div class="nav">
-    </div>
-<div>`;
+    <showcase-body style="margin-left: 1em;" _if="state.selected" _prop.showcase="state.selected"></showcase-body>
+</div>`;
     }
     static renderTemplate(ele) {
         const template = render(
