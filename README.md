@@ -5,6 +5,21 @@ Each showcase is added by calling the `showcase()` function with a callback that
 
 This library provides a set of Custom Elements that can be used to build the User Interfaces that then displays the showcases that were registered. 
 
+## Install
+
+```bash
+$ npm i purtuga/project-showcase
+
+```
+
+To setup showcase on the project where it was just installed, run:
+
+```bash
+$ node ./node_modules/.bin/project-showcase-setup
+```
+
+
+## Provided Methods/Elements
 
 ### `showcase()` method
 Registers a showcase.

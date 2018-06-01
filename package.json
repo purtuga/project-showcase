@@ -15,6 +15,9 @@
     "setup:dev": "node node_modules/project-base/scripts/create-dev",
     "test": "tape -r @std/esm test/**/*.js"
   },
+  "bin": {
+    "project-showcase-setup": "./scripts/setup.js"
+  },
   "keywords": ["showcase", "demo", "prototye", "example", "site", "static"],
   "author": "Paul Tavares",
   "license": "MIT",
