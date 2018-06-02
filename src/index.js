@@ -16,9 +16,11 @@ export {
  * Register all elements in the CustomElement registry
  */
 export function registerElements () {
-    ShowcaseApp.define();
-    ShowcaseRouter.define();
-    ShowcaseBody.define();
-    ShowcaseMenu.define();
+    [
+        ShowcaseApp,
+        ShowcaseRouter,
+        ShowcaseBody,
+        ShowcaseMenu
+    ].forEach(Component => Component.define());
 }
 

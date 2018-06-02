@@ -1,5 +1,5 @@
 import {ComponentElement} from "component-element"
-import page from "page"
+import Navigo from "navigo"
 import {state} from "../common";
 
 //================================================================
@@ -15,9 +15,9 @@ export class ShowcaseRouter extends ComponentElement {
 
     // Called from constructor
     init() {
-        page.base("/#");
-        page("/showcase/:showcase", removeCurrentShowcase, displayShowcase);
-        setTimeout(() => page.start(), 200); // To allow registrations of showcases
+        const router = new Navigo(null, true, "#");
+        router.on("/showcase/:showcase", displayShowcase);
+        setTimeout(() => router.resolve(), 200); // To allow registrations of showcases
     }
 
     // Called when all required `props` have been provided
@@ -34,15 +34,12 @@ export class ShowcaseRouter extends ComponentElement {
 }
 export default ShowcaseRouter;
 
-function removeCurrentShowcase (ctx, next) {
-    state.selected = null;
-    next();
-}
 
-function displayShowcase (ctx) {
+function displayShowcase (params) {
+    state.selected = null;
     let showcaseDefinition;
     state.showcases.some(showcase => {
-        if (showcase.name === ctx.params.showcase) {
+        if (showcase.name === params.showcase) {
             showcaseDefinition = showcase;
             return true;
         }

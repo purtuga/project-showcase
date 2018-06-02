@@ -18,7 +18,14 @@
   "bin": {
     "project-showcase-setup": "./scripts/setup.js"
   },
-  "keywords": ["showcase", "demo", "prototye", "example", "site", "static"],
+  "keywords": [
+    "showcase",
+    "demo",
+    "prototye",
+    "example",
+    "site",
+    "static"
+  ],
   "author": "Paul Tavares",
   "license": "MIT",
   "devDependencies": {
@@ -27,7 +34,7 @@
   "dependencies": {
     "component-element": "github:purtuga/ComponentElement",
     "dom-data-bind": "github:purtuga/dom-data-bind",
-    "observables": "github:purtuga/observables",
-    "page": "^1.8.6"
+    "navigo": "^7.1.2",
+    "observables": "github:purtuga/observables"
   }
 }
