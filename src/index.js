@@ -1,7 +1,7 @@
-import {ShowcaseRouter} from "./ShowcaseRouter";
-import {ShowcaseBody} from "./ShowcaseBody";
-import {ShowcaseMenu} from "./ShowcaseMenu";
-import {ShowcaseApp} from "./ShowcaseApp";
+import {ShowcaseRouter} from "./components/ShowcaseRouter";
+import {ShowcaseBody} from "./components/ShowcaseBody";
+import {ShowcaseMenu} from "./components/ShowcaseMenu";
+import {ShowcaseApp} from "./components/ShowcaseApp";
 
 export {state} from "./common"
 export {showcase} from "./showcase"

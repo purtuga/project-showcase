@@ -72,7 +72,8 @@ This element has one required `prop` named `showcase` and it must be an object w
 
 #   TODO
 
-- [ ] Create script that allows this to be added to any existing project
+- [x] Create script that allows this to be added to any existing project
+- [ ] Enhance `showcase()` function api
 - [ ] Create prettier app template
 - [ ] Create better menu system
 
