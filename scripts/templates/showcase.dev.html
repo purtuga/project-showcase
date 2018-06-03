@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dev Playground</title>
+</head>
+<body>
+<!--
+    Showcases should now be added via the /my.dev/index.js file
+-->
+<showcase-app>
+    <div style="padding-left: 1em;color: lightgrey;">
+        <h1>${package.name}</h1>
+        <div style="position: absolute; right: 1em; top: 3em;">Loaded: <script>document.write((new Date()).toLocaleString())</script></div>
+        <hr>
+    </div>
+</showcase-app>
+
+<script src="${package.name}.js"></script>
+</body>
+</html>

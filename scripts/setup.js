@@ -61,7 +61,7 @@ function setupShowcaseAtProjectRoot() {
 function setupShowcaseInDevFolder () {
     const createShowcaseFor = new Function(
         "package",
-        "return `" + fs.readFileSync(path.join(__dirname, "templates", "my.dev.showcase.html"), "utf8").replace(/\`/g, "\\`") + "`;"
+        "return `" + fs.readFileSync(path.join(__dirname, "templates", "showcase.dev.html"), "utf8").replace(/\`/g, "\\`") + "`;"
     );
     fs.writeFileSync(path.join(cwd, "my.dev", "showcase.html"), createShowcaseFor(packageJsonFile));
 }
