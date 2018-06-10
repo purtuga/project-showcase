@@ -18,12 +18,22 @@ export class ShowcaseMenu extends ComponentElement {
     display: block;
 }
 
+h3 {
+    color: darkgrey;
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
 a {
     display: block;
     padding: 0.2em;
     line-height: 2em;
     color: darkgrey;
     text-decoration: none;
+}
+
+.group > a {
+    margin-left: 1em;
 }
 
 a > .icon {
@@ -35,13 +45,18 @@ a:hover {
     background-color: #ecf5f7;
 }
 </style>
-<a _each="showcase of getShowcaseList()" _on.click="handleEvent($ev, showcase)" _attr.href="'#/showcase/' + showcase.name">
-    <span class="icon">
-        <span class="icon" _show="state.selected !== showcase">&#9675;</span>
-        <span class="icon" _show="state.selected === showcase" style="color: green;">&#9679;</span>
-    </span>
-    {{showcase.name}}
-</a>`;
+<div _each="group of state.unGroupedShowcases.concat(state.groupedShowcases)" _class="{group: !!group.showcases}">
+    <h3 _if="group.showcases">{{group.group}}</h3>
+    <a _each="showcase of (group.showcases || [group])" _on.click="handleEvent($ev, showcase)" _attr.href="'#/showcase/' + showcase.name">
+        <span class="icon">
+            <span class="icon" _show="state.selected !== showcase">&#9675;</span>
+            <span class="icon" _show="state.selected === showcase" style="color: green;">&#9679;</span>
+        </span>
+        {{showcase.name}}
+    </a>
+        
+</div>
+`;
     }
     static renderTemplate(ele) {
         const template = render(
@@ -49,10 +64,7 @@ a:hover {
             {
                 props: ele.props,
                 state,
-                handleEvent: handleEvent.bind(ele),
-                getShowcaseList() {
-                    return state.showcases.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase());
-                }
+                handleEvent: handleEvent.bind(ele)
             },
             allDirectives
         );
