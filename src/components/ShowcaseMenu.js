@@ -26,10 +26,14 @@ h3 {
 
 a {
     display: block;
+    position: relative;
     padding: 0.2em;
     line-height: 2em;
     color: darkgrey;
     text-decoration: none;
+}
+a > div {
+    padding-left: 1.5em;
 }
 
 .group > a {
@@ -39,6 +43,7 @@ a {
 a > .icon {
     font-size: 1.5em;
     vertical-align: middle;
+    position: absolute;
 }
 
 a:hover {
@@ -52,7 +57,7 @@ a:hover {
             <span class="icon" _show="state.selected !== showcase">&#9675;</span>
             <span class="icon" _show="state.selected === showcase" style="color: green;">&#9679;</span>
         </span>
-        {{showcase.name}}
+        <div>{{showcase.name}}</div>
     </a>
         
 </div>
