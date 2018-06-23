@@ -32,6 +32,9 @@ a {
     color: darkgrey;
     text-decoration: none;
 }
+a > * {
+    line-height: 1em;
+}
 a > div {
     padding-left: 1.5em;
 }
@@ -41,9 +44,10 @@ a > div {
 }
 
 a > .icon {
-    font-size: 1.5em;
+    font-size: 1.2em;
     vertical-align: middle;
     position: absolute;
+    top: 0;
 }
 
 a:hover {
