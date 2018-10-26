@@ -5,6 +5,7 @@ const fs = require("fs");
 const cwd = process.cwd();
 const packageJsonFile = require(path.join(cwd, "package.json"));
 const readline = require('readline');
+const createDev = require("../lib/createDevSetup");
 
 console.log(`
 --------------------------
@@ -35,13 +36,12 @@ Aborted. Nothing done!`);
 
 function runSetup () {
     if (!fs.existsSync(path.join(cwd, "showcase"))) {
-        console.log(" --> setting up /showcase directory");
+        console.log(" --> setting up ./showcase directory");
         setupShowcaseAtProjectRoot();
     }
 
     if (fs.existsSync(path.join(cwd, "my.dev"))) {
-        console.log(" --> setting up /my.dev/showcase.html for dev.");
-        setupShowcaseInDevFolder();
+        createDev();
     }
 
     console.log("\n DONE!\n--------------------------\n");
@@ -57,12 +57,3 @@ function setupShowcaseAtProjectRoot() {
     );
     fs.writeFileSync(path.join(cwd, "showcase", "index.js"), createShowcaseFor(packageJsonFile));
 }
-
-function setupShowcaseInDevFolder () {
-    const createShowcaseFor = new Function(
-        "package",
-        "return `" + fs.readFileSync(path.join(__dirname, "templates", "showcase.dev.html"), "utf8").replace(/\`/g, "\\`") + "`;"
-    );
-    fs.writeFileSync(path.join(cwd, "my.dev", "showcase.html"), createShowcaseFor(packageJsonFile));
-}
-

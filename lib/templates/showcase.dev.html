@@ -6,6 +6,16 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dev Playground</title>
+    <script>
+        if (!("Promise" in window)) {
+            document.write('<' + 'script src="/' + '/cdnjs.cloudflare.com/ajax/libs/core-js/2.5.3/core.min.js"></' + 'script>');
+            console.log("core-js requested");
+        }
+        if (!('customElements' in window)) {
+            document.write('<' + 'script src="/' + '/rawgit.com/webcomponents/webcomponentsjs/master/webcomponents-bundle.js"></' + 'script>');
+            console.log("CE pollyfill requested");
+        }
+    </script>
 </head>
 <body>
 <!--

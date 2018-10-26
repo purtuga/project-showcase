@@ -18,6 +18,22 @@ To setup showcase on the project where it was just installed, run:
 $ node ./node_modules/.bin/project-showcase-setup
 ```
 
+This will create a folder named `shocase` at the root of the project. It will also do some dev setup if a folder named `my.dev` exists (`project-base` normally sets this up).
+
+### Dev setups
+
+Once the project is setup for a showcase, adding the following script to your `package.json` may be desired:
+
+```json5
+{
+    script: {
+        "setup:dev:showcase": "node node_modules/project-showcase/scripts/create-dev"
+    }
+}
+```
+
+This will setup the `my.dev` folder to pickup showcases in dev mode.
+ 
 
 ## Provided Methods/Elements
 
