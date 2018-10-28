@@ -85,6 +85,19 @@ The UI element where the showcase should be displayed in. Will be given to the `
 This element has one required `prop` named `showcase` and it must be an object with the showcase information. (note: this is a "prop" not an html attribute).
 
 
+### Element: `showcase-test-runner`
+
+The UI element where Unit Test Cases can be run from the browser. 
+
+```html
+<showcase-test-runner
+    tests=[]
+    auto-run?
+    ></showcase-test-runner>
+```
+
+The Element accepts a `tests` prop (`Array<String>`) with a list of test files that should be loaded adn ran. These will be run in an `iframe` setup with Mocha, Chai and Sinon (different test harnesses possible in the future).  
+
 
 #   TODO
 
