@@ -13,6 +13,7 @@ export class ShowcaseBody extends ComponentElement {
 }
 </style>
 <div>
+    <div id="tests"></div>
     <slot></slot>
 </div>`;
     }
@@ -26,6 +27,11 @@ export class ShowcaseBody extends ComponentElement {
     // Called when all required `props` have been provided
     ready() {
         this.props.showcase.callback(this);
+        if (this.props.showcase.tests) {
+            const testRunnerEle = document.createElement("showcase-test-runner");
+            testRunnerEle.tests = this.props.showcase.tests;
+            this.$("#tests").appendChild(testRunnerEle);
+        }
     }
 
     // Called if required fields are removed

@@ -1,4 +1,4 @@
-import {ComponentElement, getComponentTemplate} from "component-element"
+import {ComponentElement, getComponentTemplate, prop} from "component-element"
 import {render, allDirectives} from "dom-data-bind"
 import {state} from "../common";
 
@@ -43,6 +43,7 @@ nav {
     <showcase-body style="margin-left: 1em;" _if="state.selected" _prop.showcase="state.selected"></showcase-body>
 </div>`;
     }
+
     static renderTemplate(ele) {
         const template = render(
             getComponentTemplate(this).innerHTML,

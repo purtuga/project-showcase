@@ -11,10 +11,16 @@ export function showcase(name, callback) {
     const definition = Object.assign(
         /**
          * @typedef {Object} ShowcaseDefinition
+         *
+         * @property {String} name
+         * @property {String} group
+         * @property {String|Array<String>} tests
+         * @property {Function} callback
          */
         {
             name: "??",
             group: null,
+            tests: null,
             callback: null
         },
         "object" === typeof name ? name : { name }
