@@ -30,13 +30,21 @@ iframe {
     display: block;
 }
 .holder {
+    display: none;
     box-sizing: border-box;
-    height: 500px;
+    height: 100%;
     border: var(--theme-border, 1px solid lightgrey);
     margin-top: 1em;
     padding: 0.5em;
     border-width: 1em;
     border-radius: 25px;
+}
+
+:host([auto-run]) {
+    height: 500px;
+}
+:host([auto-run]) .holder {
+    display: block;
 }
 .holder:empty {
     display: none;
@@ -77,9 +85,7 @@ iframe {
 
     // called when element is attached to dom
     mounted() {
-        if (this.props.autoRun) {
-            this._handleAutoRun();
-        }
+        this._handleAutoRun();
     }
 
     // called when element is removed from dom
@@ -87,7 +93,11 @@ iframe {
 
     handleEvent(ev) {
         if (ev.target === this[STATE].$runBtn) {
-            createRunWindow(this);
+            if (!this.hasAttribute("auto-run")) {
+                this.setAttribute("auto-run", "");
+            } else {
+                this._handleAutoRun();
+            }
         }
     }
 
@@ -97,7 +107,7 @@ iframe {
     }
 }
 
-function createRunWindow(instance) {
+function createRunWindow(instance, mochaOptions = {}) {
     // Destroy current iframe - if one is present
     if (instance.iframe$) {
         if (instance.iframe$.parentElement) {
@@ -117,15 +127,38 @@ function createRunWindow(instance) {
         isLoaded = true;
 
         const $iframeDoc = instance.iframe$doc = $iframe.contentDocument;
-        $iframeDoc.write(getMochaRunnerPageSource(instance));
+        $iframeDoc.write(getMochaRunnerPageSource(instance, mochaOptions));
         $iframeDoc.close();
+
+        // When user clicks on a MOCHA link for "greap", intercept
+        // and re-create the window.
+        $iframe.contentWindow.addEventListener("click", event => {
+            if (
+                event.target.tagName === "A" &&
+                event.target.search &&
+                event.target.search.indexOf("grep=") !== -1
+            ) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                event.stopPropagation();
+
+                mochaOptions.grep = decodeURIComponent(
+                    event.target.search
+                        .trim()
+                        .replace(/^\?/, "")
+                        .replace("grep=", "")
+                );
+
+                createRunWindow(instance, mochaOptions);
+            }
+        });
     };
 
     instance[STATE].$holder.appendChild($iframe);
 }
 
 
-function getMochaRunnerPageSource(instance) {
+function getMochaRunnerPageSource(instance, mochaOptions = {}) {
     const tests = instance.tests && instance.tests
         ? Array.isArray(instance.tests) ? instance.tests : [ instance.tests ]
         : [];
@@ -144,11 +177,16 @@ function getMochaRunnerPageSource(instance) {
     <h1>Unit Tests</h1>
     <div id="mocha"></div>
     
-    <script src="//unpkg.com/chai/chai.js"></script>
-    <script src="//unpkg.com/sinon@7.1.0/pkg/sinon.js"></script>
-	<script src="//unpkg.com/mocha@5.2.0/mocha.js"></script>
+    <script src="https://unpkg.com/chai/chai.js"></script>
+    <script src="https://unpkg.com/sinon@7.1.0/pkg/sinon.js"></script>
+	<script src="https://unpkg.com/mocha@5.2.0/mocha.js"></script>
 	<script>
 	    mocha.setup('bdd');
+        ${
+        mochaOptions && mochaOptions.grep
+            ? `mocha.grep(${JSON.stringify(mochaOptions.grep)})`
+            : ''
+        }
 		const expect = chai.expect;
     </script>
     ${ tests.map(testUrl => `<script src="${testUrl}"></script>`).join("\n") }
