@@ -1,6 +1,6 @@
 {
     "name": "@purtuga/project-showcase",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Quickly add showcases to your library and provide the ability to generate a static site for them.",
     "main": "src/index.js",
     "module": "src/index.js",
