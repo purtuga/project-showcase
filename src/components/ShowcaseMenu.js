@@ -1,5 +1,5 @@
-import {ComponentElement, getComponentTemplate} from "component-element"
-import {render, allDirectives } from "dom-data-bind"
+import {ComponentElement, getComponentTemplate} from "@purtuga/component-element"
+import {render, allDirectives } from "@purtuga/dom-data-bind"
 import {state} from "../common";
 
 //========================================================================================

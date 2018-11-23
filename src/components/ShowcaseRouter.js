@@ -1,4 +1,4 @@
-import {ComponentElement} from "component-element"
+import {ComponentElement} from "@purtuga/component-element"
 import Navigo from "navigo"
 import {state} from "../common";
 

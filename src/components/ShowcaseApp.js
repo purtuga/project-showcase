@@ -1,14 +1,18 @@
-import {ComponentElement, getComponentTemplate, prop} from "component-element"
-import {render, allDirectives} from "dom-data-bind"
+import {DomDataBindElement} from "@purtuga/dom-data-bind/src/DomDataBindElement.js"
+import {IfDirective} from "@purtuga/dom-data-bind/src/directives/if-directive.js"
+import {PropDirective} from "@purtuga/dom-data-bind/src/directives/prop-directive.js"
 import {state} from "../common";
 
 //============================================================
-export class ShowcaseApp extends ComponentElement {
-    static get tagName() {
-        return "showcase-app";
+export class ShowcaseApp extends DomDataBindElement {
+    static tagName = "showcase-app";
+    static directives = [ IfDirective, PropDirective ];
+
+    didInit() {
+        this.state = state;
     }
 
-    static get template() {
+    render() {
         return `
 <style>
 :host {
@@ -44,25 +48,25 @@ nav {
 </div>`;
     }
 
-    static renderTemplate(ele) {
-        const template = render(
-            getComponentTemplate(this).innerHTML,
-            {
-                props: this.props,
-                state,
-                toggleMenu(ev) {
-                    ev.target.emit(
-                        ev.target.isOpened ? "show-side-nav" : "hide-side-nav",
-                        null,
-                        { bubbles: true }
-                    );
-                }
-            },
-            allDirectives
-        );
-        ele.onDestroy(() => template.DomDataBind.destroy());
-        return template;
-    }
+    // static __renderTemplate(ele) {
+    //     const template = render(
+    //         getComponentTemplate(this).innerHTML,
+    //         {
+    //             props: this.props,
+    //             state,
+    //             toggleMenu(ev) {
+    //                 ev.target.emit(
+    //                     ev.target.isOpened ? "show-side-nav" : "hide-side-nav",
+    //                     null,
+    //                     { bubbles: true }
+    //                 );
+    //             }
+    //         },
+    //         allDirectives
+    //     );
+    //     ele.onDestroy(() => template.DomDataBind.destroy());
+    //     return template;
+    // }
 
 
     // Called from constructor

@@ -1,4 +1,4 @@
-import {ComponentElement, prop} from "component-element"
+import {ComponentElement, prop} from "@purtuga/component-element"
 
 export class ShowcaseBody extends ComponentElement {
     static get tagName() {
@@ -19,7 +19,7 @@ export class ShowcaseBody extends ComponentElement {
     }
 
     @prop({ required: true })
-    get showcase() {}
+    get showcase() { return undefined; }
 
     // Called from constructor
     // init() {}

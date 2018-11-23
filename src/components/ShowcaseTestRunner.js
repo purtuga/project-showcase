@@ -1,4 +1,4 @@
-import {ComponentElement, prop, bind} from "component-element"
+import {ComponentElement, prop, bind} from "@purtuga/component-element"
 
 
 //=====================================================================
@@ -60,10 +60,10 @@ iframe {
 
     @prop({ required: true })
     get tests() { return null; }
-    
+
     @prop({ attr: true, boolean: true })
     get autoRun() { return false; }
-    
+
 
     // Called from constructor
     // init() {}
@@ -183,10 +183,10 @@ function getMochaRunnerPageSource(instance, mochaOptions = {}) {
 	<script>
 	    mocha.setup('bdd');
         ${
-        mochaOptions && mochaOptions.grep
-            ? `mocha.grep(${JSON.stringify(mochaOptions.grep)})`
-            : ''
-        }
+    mochaOptions && mochaOptions.grep
+        ? `mocha.grep(${JSON.stringify(mochaOptions.grep)})`
+        : ''
+}
 		const expect = chai.expect;
     </script>
     ${ tests.map(testUrl => `<script src="${testUrl}"></script>`).join("\n") }

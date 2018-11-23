@@ -8,11 +8,11 @@
     <title>Dev Playground</title>
     <script>
         if (!("Promise" in window)) {
-            document.write('<' + 'script src="/' + '/cdnjs.cloudflare.com/ajax/libs/core-js/2.5.3/core.min.js"></' + 'script>');
+            document.write('<' + 'script src="/' + '/unpkg.com/core-js@^2/client/core.min.js"></' + 'script>');
             console.log("core-js requested");
         }
         if (!('customElements' in window)) {
-            document.write('<' + 'script src="/' + '/rawgit.com/webcomponents/webcomponentsjs/master/webcomponents-bundle.js"></' + 'script>');
+            document.write('<' + 'script src="/' + '/unpkg.com/@webcomponents/webcomponentsjs@^2"></' + 'script>');
             console.log("CE pollyfill requested");
         }
     </script>

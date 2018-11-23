@@ -1,4 +1,4 @@
-import {showcase, registerElements} from "project-showcase"
+import {showcase, registerElements} from "@purtuga/project-showcase";
 
 // import other showcases now so that they register themselves.
 
