@@ -1,11 +1,14 @@
-import {ComponentElement, prop} from "@purtuga/component-element"
+import { prop } from "@purtuga/component-element"
+import {Component} from "./Component.js";
 
-export class ShowcaseBody extends ComponentElement {
-    static get tagName() {
-        return "showcase-body";
-    }
+//========================================================================
 
-    static get template() {
+export class ShowcaseBody extends Component {
+    static tagName = "showcase-body";
+
+    @prop({ required: true }) showcase = undefined;
+
+    render() {
         return `
 <style>
 :host {
@@ -18,30 +21,17 @@ export class ShowcaseBody extends ComponentElement {
 </div>`;
     }
 
-    @prop({ required: true })
-    get showcase() { return undefined; }
+    didRender() {
+        if (this.props.showcase) {
+            this.props.showcase.callback(this);
 
-    // Called from constructor
-    // init() {}
-
-    // Called when all required `props` have been provided
-    ready() {
-        this.props.showcase.callback(this);
-        if (this.props.showcase.tests) {
-            const testRunnerEle = document.createElement("showcase-test-runner");
-            testRunnerEle.tests = this.props.showcase.tests;
-            this.$("#tests").appendChild(testRunnerEle);
+            if (this.props.showcase.tests) {
+                const testRunnerEle = document.createElement("showcase-test-runner");
+                testRunnerEle.tests = this.props.showcase.tests;
+                this.$("#tests").appendChild(testRunnerEle);
+            }
         }
     }
-
-    // Called if required fields are removed
-    // unready() {}
-
-    // called when element is attached to dom
-    // mounted() {}
-
-    // called when element is removed from dom
-    // unmounted() {}
 }
 
 export default ShowcaseBody;

@@ -1,15 +1,17 @@
-import {DomDataBindElement} from "@purtuga/dom-data-bind/src/DomDataBindElement.js"
-import {IfDirective} from "@purtuga/dom-data-bind/src/directives/if-directive.js"
-import {PropDirective} from "@purtuga/dom-data-bind/src/directives/prop-directive.js"
+import {Component} from "./Component.js"
+import {PropDirective, IfDirective} from "@purtuga/dom-data-bind"
 import {state} from "../common";
 
 //============================================================
-export class ShowcaseApp extends DomDataBindElement {
+export class ShowcaseApp extends Component {
     static tagName = "showcase-app";
+
     static directives = [ IfDirective, PropDirective ];
 
     didInit() {
-        this.state = state;
+        this.state = {
+            commonState: state
+        };
     }
 
     render() {
@@ -44,45 +46,9 @@ nav {
 </nav>
 <div class="body">
     <slot></slot>
-    <showcase-body style="margin-left: 1em;" _if="state.selected" _prop.showcase="state.selected"></showcase-body>
+    <showcase-body style="margin-left: 1em;" _if="state.commonState.selected" _prop.showcase="state.commonState.selected"></showcase-body>
 </div>`;
     }
-
-    // static __renderTemplate(ele) {
-    //     const template = render(
-    //         getComponentTemplate(this).innerHTML,
-    //         {
-    //             props: this.props,
-    //             state,
-    //             toggleMenu(ev) {
-    //                 ev.target.emit(
-    //                     ev.target.isOpened ? "show-side-nav" : "hide-side-nav",
-    //                     null,
-    //                     { bubbles: true }
-    //                 );
-    //             }
-    //         },
-    //         allDirectives
-    //     );
-    //     ele.onDestroy(() => template.DomDataBind.destroy());
-    //     return template;
-    // }
-
-
-    // Called from constructor
-    // init() {}
-
-    // Called when all required `props` have been provided
-    // ready() {}
-
-    // Called if required fields are removed
-    // unready() {}
-
-    // called when element is attached to dom
-    // mounted() {}
-
-    // called when element is removed from dom
-    // unmounted() {}
 }
 
 export default ShowcaseApp;

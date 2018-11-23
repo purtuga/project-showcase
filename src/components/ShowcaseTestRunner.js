@@ -1,4 +1,5 @@
-import {ComponentElement, prop, bind} from "@purtuga/component-element"
+import {prop, bind} from "@purtuga/component-element"
+import {Component} from "./Component.js";
 
 
 //=====================================================================
@@ -8,12 +9,10 @@ const STATE = Symbol("STATE");
  * Provides an HTML element that allos for a set of test files to be
  * defined, and runs those in an i-frame against a UT test framework.
  */
-export class ShowcaseTestRunner extends ComponentElement {
-    static get tagName() {
-        return "showcase-test-runner";
-    }
+export class ShowcaseTestRunner extends Component {
+    static tagName = "showcase-test-runner";
 
-    static get template() {
+    render() {
         return `
 <style>
 :host {
@@ -58,18 +57,12 @@ iframe {
 `;
     }
 
-    @prop({ required: true })
-    get tests() { return null; }
+    @prop({ required: true }) tests = null;
 
-    @prop({ attr: true, boolean: true })
-    get autoRun() { return false; }
-
-
-    // Called from constructor
-    // init() {}
+    @prop({ attr: true, boolean: true }) autoRun = false;
 
     // Called when all required `props` have been provided
-    ready() {
+    didRender() {
         if (!this[STATE]) {
             this[STATE] = {
                 $holder: this.$(".holder"),
@@ -83,13 +76,9 @@ iframe {
     // Called if required fields are removed
     // unready() {}
 
-    // called when element is attached to dom
-    mounted() {
+    didMount() {
         this._handleAutoRun();
     }
-
-    // called when element is removed from dom
-    // unmounted() {}
 
     handleEvent(ev) {
         if (ev.target === this[STATE].$runBtn) {

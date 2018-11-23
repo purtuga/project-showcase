@@ -1,4 +1,5 @@
-import {makeObservable, objectCreateComputedProp} from "@purtuga/observables"
+import {makeObservable} from "@purtuga/observables/src/objectWatchProp.js"
+import {objectCreateComputedProp} from "@purtuga/observables/src/objectCreateComputedProp.js"
 
 const DEFAULT_GROUP_NAME = "";
 const grouped = [];

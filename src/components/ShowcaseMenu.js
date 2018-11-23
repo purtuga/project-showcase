@@ -1,16 +1,35 @@
-import {ComponentElement, getComponentTemplate} from "@purtuga/component-element"
-import {render, allDirectives } from "@purtuga/dom-data-bind"
+import {
+    AttrDirective,
+    OnDirective,
+    IfDirective,
+    ClassDirective,
+    ShowDirective,
+    EachDirective
+} from "@purtuga/dom-data-bind/src/DomDataBindElement.js"
 import {state} from "../common";
+import {Component} from "./Component.js";
 
 //========================================================================================
-function handleEvent (ev, showcaseDefinition) {
-    this.emit("show", showcaseDefinition);
-}
 
+export class ShowcaseMenu extends Component {
+    static tagName = "showcase-menu";
 
-export class ShowcaseMenu extends ComponentElement {
-    static get tagName() { return "showcase-menu"; }
-    static get template() {
+    static directives = [
+        EachDirective,
+        IfDirective,
+        AttrDirective,
+        OnDirective,
+        ClassDirective,
+        ShowDirective
+    ];
+
+    didInit() {
+        this.state = {
+            commonState: state
+        };
+    }
+
+    render() {
         return `
 <style>
 :host {
@@ -54,12 +73,12 @@ a:hover {
     background-color: #ecf5f7;
 }
 </style>
-<div _each="group of state.unGroupedShowcases.concat(state.groupedShowcases)" _class="{group: !!group.showcases}">
+<div _each="group of state.commonState.unGroupedShowcases.concat(state.commonState.groupedShowcases)" _class="{group: !!group.showcases}">
     <h3 _if="group.showcases">{{group.group}}</h3>
     <a _each="showcase of (group.showcases || [group])" _on.click="handleEvent($ev, showcase)" _attr.href="'#/showcase/' + showcase.name">
         <span class="icon">
-            <span class="icon" _show="state.selected !== showcase">&#9675;</span>
-            <span class="icon" _show="state.selected === showcase" style="color: green;">&#9679;</span>
+            <span class="icon" _show="state.commonState.selected !== showcase">&#9675;</span>
+            <span class="icon" _show="state.commonState.selected === showcase" style="color: green;">&#9679;</span>
         </span>
         <div>{{showcase.name}}</div>
     </a>
@@ -67,35 +86,9 @@ a:hover {
 </div>
 `;
     }
-    static renderTemplate(ele) {
-        const template = render(
-            getComponentTemplate(this).innerHTML,
-            {
-                props: ele.props,
-                state,
-                handleEvent: handleEvent.bind(ele)
-            },
-            allDirectives
-        );
-        ele.onDestroy(() => {
-            template.DomDataBind.destroy();
-        });
-        return template;
+
+    handleEvent(ev, showcaseDefinition) {
+        this.emit("show", showcaseDefinition);
     }
-
-    // Called from constructor
-    // init() {}
-
-    // Called when all required `props` have been provided
-    // ready() {}
-
-    // Called if required fields are removed
-    // unready() {}
-
-    // called when element is attached to dom
-    // mounted() {}
-
-    // called when element is removed from dom
-    // unmounted() {}
 }
 export default ShowcaseMenu;

@@ -1,9 +1,8 @@
-import {showcase, registerElements} from "../src/index.js";
-
-// import other showcases now so that they register themselves.
+import "../src/import.js"
+import { showcase } from "../src/index.js";
+import "./showcase.app.js"
 
 //========================================================
-registerElements();
 
 
 showcase("About", function ($content) {

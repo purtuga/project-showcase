@@ -1,37 +1,28 @@
-import {ComponentElement} from "@purtuga/component-element"
+import {Component} from "./Component.js";
 import Navigo from "navigo"
-import {state} from "../common";
+import { state } from "../common.js";
 
 //================================================================
 
-export class ShowcaseRouter extends ComponentElement {
-    static get tagName() {
-        return "showcase-router";
-    }
+class ShowcaseRouter extends Component {
+    static tagName = "showcase-router";
 
-    static get template() {
-        return `<span></span>`;
-    }
-
-    // Called from constructor
-    init() {
+    didInit() {
         const router = new Navigo(null, true, "#");
         router.on("/showcase/:showcase", displayShowcase);
         setTimeout(() => router.resolve(), 200); // To allow registrations of showcases
     }
 
-    // Called when all required `props` have been provided
-    // ready() {}
+    willRender() {
+        return false;
+    }
 
-    // Called if required fields are removed
-    // unready() {}
-
-    // called when element is attached to dom
-    // mounted() {}
-
-    // called when element is removed from dom
-    // unmounted() {}
+    render() {
+        return `<style>:host { display: none; }</style><span></span>`;
+    }
 }
+
+export { ShowcaseRouter };
 export default ShowcaseRouter;
 
 
